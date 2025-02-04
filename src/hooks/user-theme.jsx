@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { ThemeProviderContext } from "../contexts/theme-context"
+import { ThemeProviderContext } from "../contexts/theme-context.jsx"
 
 // Custom hook to use the theme context
 

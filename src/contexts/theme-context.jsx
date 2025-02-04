@@ -13,7 +13,7 @@ const initialState = {
 
 // create the ThemeProviderContext with the initial state
 
-const ThemeProviderContext = createContext(initialState);
+export const ThemeProviderContext = createContext(initialState);
 
 // ThemeProvider component to provide the theme context to its children
 

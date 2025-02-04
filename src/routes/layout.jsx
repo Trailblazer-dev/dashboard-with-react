@@ -5,15 +5,26 @@ import Header from "../layouts/header";
 import { Sidebar } from "../layouts/sidebar";
 import { cn } from "../utils/cn";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useClickOutside from "../hooks/use-click-outside";
 
 const Layout = () => {
     // Check if the device is a desktop
     const isDesktopDevice = useMediaQuery("(min-width: 768px)");
     // Set the initial state of the sidebar to collapsed on mobile devices
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(!isDesktopDevice);
 
     const sidebarRef = useRef(null);
+    // Close the sidebar on mobile devices when the device is resized to desktop
+    useEffect(()=>{
+      setCollapsed(!isDesktopDevice);
+    },[isDesktopDevice]);
+
+    useClickOutside([sidebarRef],()=>{
+      if(!isDesktopDevice && !collapsed){
+        setCollapsed(true);
+      }
+    })
 
   return (<div className="min-h-screen bg-slate-100 transition-colors dark:bg-slate-950">
     <div className={cn("pointer-events-none fixed inset-0 -z-10 bg-black opacity-0 transition-opacity ",!collapsed && "max-md:pointer-events-auto max-md:opacity-30 max-md:z-50")} />
